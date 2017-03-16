@@ -57,7 +57,7 @@ public class LcdPropertyTest {
         String[] lines = lcdDisplayLines(theNumber);
         String bottomLine = lines[2];
 
-        assertThat(bottomLine).matches("([| ]_[| ])+");
+        assertThat(bottomLine).matches("(._.)+");
     }
 
     private String[] lcdDisplayLines(int theNumber) {
