@@ -1,9 +1,11 @@
-## Simple Java Setup using Maven
+# Kata comparing example based tests with property based tests
 
-Adding popular testing libs :
+## Conclusion
 
-* junit
-* fest-assert
-* mockito
+We conclude that we need 14 property based tests for verifying that every combination 
+of the layout is correct using a property based tests.
 
-to run testsuites just run "mvn clean test"
+It would be sufficient with 10 example based tests to verify that every combination
+of the layout is correct.
+
+The LCD Kata doesn't seem to lend itself as a good example.
