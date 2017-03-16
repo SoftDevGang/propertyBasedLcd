@@ -3,8 +3,6 @@ package kata;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-import org.fest.assertions.api.Assertions;
-import org.junit.Assume;
 import org.junit.runner.RunWith;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -58,6 +56,16 @@ public class LcdPropertyTest {
         String bottomLine = lines[2];
 
         assertThat(bottomLine).matches("(._.)+");
+    }
+
+    @Property(maxShrinkDepth = 500, maxShrinks = 500)
+    public void lcd_displays_without_2_have_pipe_in_lower_right_column(@InRange(minInt = 0) int theNumber) {
+        assumeTrue(doesNotContain(theNumber, "2"));
+
+        String[] lines = lcdDisplayLines(theNumber);
+        String bottomLine = lines[2];
+
+        assertThat(bottomLine).matches("(..\\|)+");
     }
 
     private String[] lcdDisplayLines(int theNumber) {
