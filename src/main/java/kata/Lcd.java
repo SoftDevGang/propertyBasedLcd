@@ -11,12 +11,19 @@ public class Lcd {
 
     @SuppressWarnings("serial")
     private Map<Character, Digit> possibleDigits = new HashMap<Character, Digit>() {{
+        put('0', new Digit(" _ ", "  |", "  |"));
         put('1', new Digit("   ", "  |", "  |"));
         put('2', new Digit(" _ ", " _|", "|_ "));
+        put('3', new Digit(" _ ", "  |", "  |"));
+        put('4', new Digit(" _ ", "  |", "  |"));
+        put('5', new Digit(" _ ", "  |", "  |"));
+        put('6', new Digit(" _ ", "  |", "  |"));
         put('7', new Digit(" _ ", "  |", "  |"));
+        put('8', new Digit(" _ ", "  |", "  |"));
+        put('9', new Digit(" _ ", "  |", "  |"));
     }};
 
-    private static final String NL = "\n";
+    public static final String NL = "\n";
 
     /**
      * Accept only an integer, so we're sure that from here we have only valid input

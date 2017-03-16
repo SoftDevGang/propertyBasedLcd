@@ -54,9 +54,9 @@ public class LcdTest {
         Lcd lcd = new Lcd();
         String result = lcd.getDisplayString(172);
         Assertions.assertThat(result).isEqualTo(
-            "   " + " _ " + " _ " + NL +
-            "  |" + "  |" + " _|" + NL +
-            "  |" + "  |" + "|_ " + NL );
+            "    _  _ " + NL +
+            "  |  | _|" + NL +
+            "  |  ||_ " + NL );
         System.out.println(result);
     }
 
