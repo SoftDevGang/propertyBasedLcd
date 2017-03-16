@@ -9,3 +9,8 @@ It would be sufficient with one example based tests to verify that every combina
 of the layout is correct.
 
 The LCD Kata doesn't seem to lend itself as a good example.
+
+### Usage criteria
+
+Are the properties business oriented and do they give confidence that 
+the result is always correct?
