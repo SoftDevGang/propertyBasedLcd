@@ -7,8 +7,12 @@ import org.fest.assertions.api.Assertions;
 import org.junit.Assume;
 import org.junit.runner.RunWith;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.junit.Assume.assumeTrue;
+
 @RunWith(JUnitQuickcheck.class)
 public class LcdPropertyTest {
+    private Lcd lcd = new Lcd();
 
     //* formatting
     // first and third column only contains pipes or blank
@@ -30,28 +34,35 @@ public class LcdPropertyTest {
     // etc for all places have it / don't have it
 
     @Property
-    public void allDigitsHaveThreeLines(@InRange(min = "0") Integer arg) {
-        String displayString = new Lcd().getDisplayString(arg);
-        String[] lines = displayString.split(Lcd.NL);
-        Assertions.assertThat(lines.length).isEqualTo(3);/**/
+    public void all_lcd_displays_have_three_lines(@InRange(minInt = 0) Integer theNumber) {
+        String[] lines = lcdDisplayLines(theNumber);
+
+        assertThat(lines.length).isEqualTo(3);
     }
 
     @Property(maxShrinkDepth = 500, maxShrinks = 500)
-    public void oneAndFourDontHaveUnderscoreOnTopMiddleColumnBuiltIn(@InRange(minInt = 0) int arg) {
-        Assume.assumeTrue(doesNotContain(arg, "1", "4"));
-        String displayString = new Lcd().getDisplayString(arg);
-        String[] lines = displayString.split(Lcd.NL);
+    public void lcd_displays_without_one_or_four_have_underscore_in_top_middle_column(@InRange(minInt = 0) int theNumber) {
+        assumeTrue(doesNotContain(theNumber, "1", "4"));
+
+        String[] lines = lcdDisplayLines(theNumber);
         String firstLine = lines[0];
-        Assertions.assertThat(firstLine).matches("( _ )+");
+
+        assertThat(firstLine).matches("( _ )+");
     }
 
     @Property(trials = 1000, maxShrinkDepth = 500, maxShrinks = 500) // One thousand to find enough examples values
-    public void any_number_not_1_4_7_9_have_underscores_on_top_bottom_column(@InRange(minInt = 0) int arg) {
-        Assume.assumeTrue(doesNotContain(arg, "1", "4", "7", "9"));
-        String displayString = new Lcd().getDisplayString(arg);
-        String[] lines = displayString.split(Lcd.NL);
+    public void lcd_displays_without_1_4_7_9_have_underscore_in_bottom_middle_column(@InRange(minInt = 0) int theNumber) {
+        assumeTrue(doesNotContain(theNumber, "1", "4", "7", "9"));
+
+        String[] lines = lcdDisplayLines(theNumber);
         String bottomLine = lines[2];
-        Assertions.assertThat(bottomLine).matches("([| ]_[| ])+");
+
+        assertThat(bottomLine).matches("([| ]_[| ])+");
+    }
+
+    private String[] lcdDisplayLines(int theNumber) {
+        String displayString = lcd.getDisplayString(theNumber);
+        return displayString.split(Lcd.NL);
     }
 
     private boolean doesNotContain(int arg, String... illegal) {
