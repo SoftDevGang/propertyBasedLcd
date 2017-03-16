@@ -2,8 +2,11 @@ package kata;
 
 import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.generator.java.lang.IntegerGenerator;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.fest.assertions.api.Assertions;
+import org.junit.Assume;
 import org.junit.runner.RunWith;
 
 /**
@@ -32,11 +35,27 @@ public class LcdPropertyTest {
     // etc for all places have it / don't have it
 
     @Property
-    public void allDigitsHaveThreeLines(@From(AnyPositiveInteger.class) Integer arg) {
+    public void allDigitsHaveThreeLines( @InRange(min = "0") Integer arg) {
         String displayString = new Lcd().getDisplayString(arg);
         String[] lines = displayString.split(Lcd.NL);
-        Assertions.assertThat(lines.length).isEqualTo(3);
+        Assertions.assertThat(lines.length).isEqualTo(3);/**/
+    }
+
+    @Property(maxShrinkDepth = 500, maxShrinks = 500)
+    public void oneAndFourDontHaveUnderscoreOnTopMiddleColumnBuiltIn(@InRange(minInt = 0) int arg) {
+        Assume.assumeTrue(doesNotContain1nor4(arg));
+        String displayString = new Lcd().getDisplayString(arg);
+        String[] lines = displayString.split(Lcd.NL);
+        String firstLine = lines[0];
+        Assertions.assertThat(firstLine).matches("( _ )+");
+    }
+
+    private boolean doesNotContain1nor4(int arg) {
+        return !String.valueOf(arg).contains("1") && !String.valueOf(arg).contains("4");
     }
 
 
+    @Property()
+    public void whatever(@From(AnyPositiveInteger.class) Integer arg) {
+    }
 }
