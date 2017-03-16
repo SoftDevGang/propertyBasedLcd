@@ -1,5 +1,6 @@
 package kata;
 
+import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
@@ -66,6 +67,14 @@ public class LcdPropertyTest {
         String bottomLine = lines[2];
 
         assertThat(bottomLine).matches("(..\\|)+");
+    }
+
+    @Property()
+    public void lcd_displays_with_2_have_blank_in_lower_right_column(@From(OnlyTwosGenerator.class) int theNumber) {
+        String[] lines = lcdDisplayLines(theNumber);
+        String bottomLine = lines[2];
+
+        assertThat(bottomLine).matches("(.. )+");
     }
 
     private String[] lcdDisplayLines(int theNumber) {
