@@ -11,24 +11,20 @@ import static org.junit.Assume.assumeTrue;
 
 @RunWith(JUnitQuickcheck.class)
 public class LcdPropertyTest {
-    private Lcd lcd = new Lcd();
+    private final Lcd lcd = new Lcd();
+
+    // Properties
 
     //* formatting
     // first and third column only contains pipes or blank
-
     // middle column only underscore or blank
-
-    // lenght of line is string length * 3 + nl
-
+    // length of line is string length * 3 + nl
     // all lines have the same length
-
     // only three lines
 
     //* layout
     // any number not (1,4) have underscores on top middle column
-
     // any number not (1,4,7,9) have underscores on top bottom column
-
     // any number not 2 have pipe on lower right
     // etc for all places have it / don't have it
 
@@ -93,12 +89,10 @@ public class LcdPropertyTest {
     }
 
     /*
-
     We conclude that we need 14 property based tests for verifying that every combination
     of the layout is correct using a property based tests.
 
     It would be sufficient with 10 example based tests to verify that every combination
     of the layout is correct.
-
      */
 }

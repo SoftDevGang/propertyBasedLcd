@@ -1,6 +1,9 @@
 package kata;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static kata.LineNumber.One;
@@ -10,7 +13,7 @@ import static kata.LineNumber.Two;
 public class Lcd {
 
     @SuppressWarnings("serial")
-    private Map<Character, Digit> possibleDigits = new HashMap<Character, Digit>() {{
+    private final Map<Character, Digit> possibleDigits = new HashMap<Character, Digit>() {{
         put('0', new Digit(" _ ", "| |", "|_|"));
         put('1', new Digit("   ", "  |", "  |"));
         put('2', new Digit(" _ ", " _|", "|_ "));
@@ -57,8 +60,6 @@ public class Lcd {
                 .map(digit -> digit.forLine(currentLine))
                 .collect(Collectors.joining())
                 + NL;
-
     }
-
 
 }

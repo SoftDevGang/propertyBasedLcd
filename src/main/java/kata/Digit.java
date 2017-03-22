@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Digit {
-    private Map<LineNumber, String> lines;
+    private final Map<LineNumber, String> lines;
 
     /**
      * Enumerating lines instead of accepting an array/list
